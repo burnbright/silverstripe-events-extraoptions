@@ -21,6 +21,14 @@ class EventExtrasDecorator extends DataObjectDecorator{
 		
 		$ctf = new ManyManyComplexTableField($this->owner,'ExtraOptions','EventExtraOption',$fieldlist);
 		$fields->addFieldToTab('Root.Content.Extras',$ctf);
+		
+		//TODO: finish this to show the number of extras in the CMS
+		if(false && $af = $fields->fieldByName('Root')->fieldByName('Reports')->fieldByName('Attendees')->Fields()->fieldByName('AttendeesField')){
+			$fields = $af->FieldList();
+			$fields['NumberOfExtras'] = 'NumberOfExtras';
+			$af->setFieldList($fields);
+		}
+		
 	}
 	
 	//new cost calculation
@@ -37,8 +45,13 @@ class EventExtrasDecorator extends DataObjectDecorator{
 	
 	function updateRegistrationFields(FieldSet &$fields, &$actions, &$validator){
 		if($this->owner->ExtraOptions() && $this->owner->ExtraOptions()->exists()){
-			$csf = new CheckboxSetField('ExtraOptions','Addons',$this->owner->ExtraOptions()->map('ID','Name'));
-			$fields->push($csf);
+			$csf = new CheckboxSetField('ExtraOptions','Additional',$this->owner->ExtraOptions()->map('ID','Name'));
+			if($fields->fieldByName('Attendees') && $fields->fieldByName('Attendees') instanceof VariableGroupField){
+				$fields->fieldByName('Attendees')->push($csf);
+				$fields->fieldByName('Attendees')->generateFields();
+			}else{
+				$fields->push($csf);
+			}
 		}
 	}
 	

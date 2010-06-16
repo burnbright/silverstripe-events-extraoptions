@@ -5,6 +5,9 @@ class EventAttendeeExtrasDecorator extends DataObjectDecorator{
 		return array(
 			'many_many' => array(
 				'ExtraOptions' => 'EventExtraOption'
+			),
+			'casting' => array(
+				'NumberOfExtras' => 'Int'
 			)
 		);
 	}
@@ -15,9 +18,13 @@ class EventAttendeeExtrasDecorator extends DataObjectDecorator{
 		if($extras = $this->owner->ExtraOptions() && $this->owner->ExtraOptions()->exists()){
 			$filter = "ID IN (".implode(',',$this->owner->ExtraOptions()->map('ID','ID')).")";			
 			$tlf = new TableListField('Extras','EventExtraOption',array('Name'=>'Name','Price'=>'Price'),$filter);
-			$fields->addFieldToTab('Root.ChosenExtras',$tlf);			
+			$fields->addFieldToTab('Root.ChosenExtras',$tlf);		
 		}
 		
+	}
+	
+	function NumberOfExtras(){
+		return $this->owner->ExtraOptions()->Count();
 	}
 }
 ?>
