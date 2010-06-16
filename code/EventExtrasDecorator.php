@@ -46,8 +46,12 @@ class EventExtrasDecorator extends DataObjectDecorator{
 	 * Called by VariableGroupField callback
 	 */
 	function customAttendeesGeneration(&$attendee,$composite){
-		if($composite->fieldByName('ExtraOptions'))
+		if($composite->fieldByName('ExtraOptions')){
 			$attendee->Extras = explode(',',$composite->fieldByName('ExtraOptions')->dataValue());
+			if($attendee->ID){
+				$attendee->ExtraOptions()->setByIDList($attendee->Extras);
+			}
+		}
 	}
 	
 }
