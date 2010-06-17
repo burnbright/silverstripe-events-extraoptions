@@ -5,7 +5,7 @@ class EventExtraOption extends DataObject{
 		'Name' => 'Varchar',
 		'Description' =>'Varchar(255)',
 		'Manipulation' => "Enum('Add,Subtract','Add')",
-		'Price' => 'Decimal'
+		'Price' => 'Currency'
 		//TODO: quantity available
 	);
 	

@@ -45,7 +45,7 @@ class EventExtrasDecorator extends DataObjectDecorator{
 	
 	function updateRegistrationFields(FieldSet &$fields, &$actions, &$validator){
 		if($this->owner->ExtraOptions() && $this->owner->ExtraOptions()->exists()){
-			$csf = new CheckboxSetField('ExtraOptions','Additional',$this->owner->ExtraOptions()->map('ID','Name'));
+			$csf = new CheckboxSetField('ExtraOptions','Additional',$this->owner->ExtraOptions()->map('ID','Title'));
 			if($fields->fieldByName('Attendees') && $fields->fieldByName('Attendees') instanceof VariableGroupField){
 				$fields->fieldByName('Attendees')->push($csf);
 				$fields->fieldByName('Attendees')->generateFields();
