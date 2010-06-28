@@ -1,0 +1,2 @@
+Todo:
+ * currently the events module relies on tickets being present to show the payment form.
