@@ -16,7 +16,7 @@ class EventExtraOption extends DataObject{
 	function Title(){
 		if($this->Price){
 			$price = DBField::create('Currency',$this->Price);
-			return $this->Name." - ".$this->Manipulation." ".$price->Nice();
+			return $this->Name." - "._t("EventExtraOption.".strtoupper($this->Manipulation),$this->Manipulation)." ".$price->Nice();
 		}
 		return $this->Name;
 	}
@@ -35,4 +35,3 @@ class EventExtraOption extends DataObject{
 		return $value;
 	}
 }
-?>

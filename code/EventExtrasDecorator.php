@@ -68,4 +68,3 @@ class EventExtrasDecorator extends DataObjectDecorator{
 	}
 	
 }
-?>
